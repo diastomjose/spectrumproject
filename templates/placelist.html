@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>placelist</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style type="text/css">
+		body
+		{
+			background-color: grey;
+		}
+	</style>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a  class="navbar-brand" href="#">TourimManagemnt</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li ><a class="active" href="{ % url 'index' %}">home</a></li>
+				{% if user.is_authenticated %}
+					
+					<li><a href=" {% url 'logout' %}">LOGOUT</a></li>
+					<li><a href=" {% url 'packages' %}">PACKAGES</a></li>
+				{% else %}
+					
+					<li><a href=" {% url 'login' %}">LOGIN</a></li>
+					<li><a href=" {% url 'register' %}">REGISTER</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+		<div class="container">
+			<p><h3>PACKAGE:</h3></p>
+			<div   id="myca" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#myca" data-slide-to="0" class="active"></li>
+					<li data-target="#myca" data-slide-to="1"></li>
+					<li data-target="#myca" data-slide-to="2"></li>
+				</ol>
+				<div class="carousel-inner" >
+					<div class="carousel-inner">
+						{% for i in obj1|slice:":3" %}
+							{% if forloop.first %}
+								<div class="active item">
+								{% else %}
+									<div class="item">
+									{% endif %}
+									<div>
+										<img src="{{i.place_pic.url}}" alt="loading" style="width: 100%; min-height:400px;max-height:400px; ">
+										<div>
+											<h1 style="background-color:white; color: black;">{{i.place_name}}</h1>
+											
+										</div>
+									</div>
+									
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<a class="left carousel-control" href="#myca" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" ></span>
+						<span class="sr-only">previous</span>
+					</a>
+					<a   class="right carousel-control" href="#myca" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="sr-only">next</span>
+					</a>
+				</div>
+				
+				
+			</div>
+			{% for i in obj1 %}
+				<div class="container">
+					
+					<h4>{{i.place_name}}</h4>
+					<p>{{i.place_description}}</p>
+					
+				</div>
+			{% endfor %}
+			<div class="container">
+				<br>
+				<br>
+				<h3 style="color: blue; border-style: solid;border-top:1px;border-left:1px;
+				border-right:1px;border-color:blue;">Select your favourite from the optional places in the package</h3>
+				<form method="POST" action="">
+					{% csrf_token %}
+					{% for i in obj2 %}
+						<!-- {{ forloop.counter }} -->
+						
+						<div style="bo">
+							<img src="{{i.place_pic.url}}" alt="loading" style=" max-width:200px;max-height:200px; ">
+							<input type="checkbox" name="checks[]" value="{{ i.place_name }}" />
+							<p>{{i.place_name}}<br>
+								<span>Additional Cost: {{i.place_cost}}</span></p>
+								<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#{{ forloop.counter }}">more</button>
+								<div id="{{ forloop.counter }}" class="collapse">
+									{{i.place_description}}
+								</div>
+								<br>
+							</div>
+						{% endfor %}
+					</div>
+					<div style="text-align: center;">
+						<button type="submit" class= "btn btn-success">submit</button>
+					</div>
+				</form>
+				
+				
+			</div>
+		</body>
+	</html>

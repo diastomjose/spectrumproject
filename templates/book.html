@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>booked</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style type="text/css">
+		#footer {
+	
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	background-color: #efefef;
+	text-align: center;
+	};
+	
+	</style>
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a  class="navbar-brand" href="#">TourimManagemnt</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li ><a class="active" href="{% url 'index' %}">home</a></li>
+				{% if user.is_authenticated %}
+					
+					<li><a href=" {% url 'logout' %}">LOGOUT</a></li>
+					<li><a href=" {% url 'packages' %}">PACKAGES</a></li>
+				{% else %}
+					
+					<li><a href=" {% url 'login' %}">LOGIN</a></li>
+					<li><a href=" {% url 'register' %}">REGISTER</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+		
+		
+		
+		
+		<h1>Your Booking has been SUCCESSFULL</h1>
+		<div  style="    border-width: 2px 10px 4px 20px; border-style:solid;">
+			<p>
+				Dear {{user.username}},<br>
+				we thank you for requesting our service
+			</p>
+		</div>
+		<form method ='POST' action="">
+			{% csrf_token %}
+			<div style="text-align: center;">
+				<button type="submit" class="btn btn-info btn-lg" >OK</button>
+			</div>
+		</form>
+		<br>
+		<br>
+		<a href="{% url 'download' %}">reciept</a>
+	</body>
+	<!-- Footer -->
+	
+	<footer class="page-footer font-small blue" id="footer">
+		<div style="width:50%;">
+			<h4 style="border-top:0px;border-right: 0px; border-left:  0px;border-bottom:  2px;border-style:solid;border-color: black;">contacts</h4>
+		</div>
+		<!-- Copyright --><!--
+		<div class="footer-copyright text-center py-3">© 2018 Copyright:
+			<a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a> -->
+			
+			<!-- Copyright -->
+		</footer>
+		
+		<!-- Footer -->
+	</html>

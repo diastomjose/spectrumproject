@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>login</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style type="text/css">
+		html,body,div{
+				padding: 0%;
+				margin: 0%;
+				height: 100%;
+				width: 100%;
+				background-color: blue;
+			}
+			.siz1{
+				height: 30%;
+				width: 100%;
+				float: none;
+			}
+			.siz2{
+				height: 40%;
+				width: 100%;
+			}
+			.siz3{
+				height: 100%;
+				width: 30%;
+				float: left;
+			}
+			.siz4{
+				height: 100%;
+				width: 40%;
+				border-style: solid;
+				border-width: 5px;
+				border-color: blue;
+				float: left;
+				background-color: grey;
+			}
+			#id_Username{
+				color: green;
+			}
+	</style>
+	<body>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<div class="siz1"></div>
+		<div class="siz2">
+			<div class="siz3"></div>
+			<div class="siz4">
+				<br><br>
+				<div style="text-align: center; background-color:grey;">
+					{% block content %}
+						<form method="POST" action="">
+							{% csrf_token %}
+							{{form.as_p}}
+							<div class="g-recaptcha" style="background-color: grey;" data-sitekey="6LcrvnMUAAAAAJ3KK3EFPGW_CgO_7GPdcOlEA2lW"></div>
+							
+							<button class="btn btn-alert" type = "submit">login</button>
+						</form>
+						<a href="{% url 'social:begin' 'facebook' %}" style="color:violet;">Login with Facebook</a>
+					{% endblock %}
+					<br><br>
+					
+				</div>
+				<div class="siz3"></div>
+			</div>
+			<div class="siz1"></div>
+		</div>
+	</body>
+</html>

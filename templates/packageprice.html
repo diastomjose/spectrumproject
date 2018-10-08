@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>packageprice</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		
+		
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a  class="navbar-brand" href="#">TourimManagemnt</a>
+			</div>
+			<ul class="nav navbar-nav">
+				{% if user.is_authenticated %}
+					
+					<li><a href=" {% url 'logout' %}">LOGOUT</a></li>
+					<li><a href=" {% url 'packages' %}">PACKAGES</a></li>
+				{% else %}
+					
+					<li><a href=" {% url 'login' %}">LOGIN</a></li>
+					<li><a href=" {% url 'register' %}">REGISTER</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+		
+		
+		
+		<input type="hidden" name="totalcost" id="totalcost" value ={{totalcost}} >
+		
+		<div>
+			<p><label>DATE :</label><span>{{time}}</span></p>
+			<label for="quantity">Number of people</label>
+			<input type="text" name="quantity" id="quantity">
+			<button type="submit" onclick="getval()">click</button>
+		</div>
+		<div>
+			<span><label>TotalCost :</label><span id="multicost">{{totalcost}}</span></span>
+		</div>
+		
+		<div class='pm-button'><a href='https://www.payumoney.com/paybypayumoney/#/DA04FAAC90E4A5463C8DBA76A33FB835'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/21.png' /></a></div>
+		<p>**after you have paid the money click the button below</p>
+		<form method="POST" action="">
+			{% csrf_token %}
+			<input type="hidden" name="tcost" id="tcost" value="">
+			<input type="hidden" name="num" id="num" value="">
+			<button type="submit">DONE</button>
+		</form>
+		
+		<script type="text/javascript">
+			var x = 0;
+			var totalcost = 0;
+			var cost = 0;
+			function getval()
+			{
+				x = parseInt(document.getElementById('quantity').value);
+				cost = parseInt(document.getElementById('totalcost').value);
+				totalcost = cost * x;
+				document.getElementById('multicost').innerHTML=totalcost;
+				document.getElementById('tcost').value = totalcost;
+				document.getElementById('num').value = x;
+				}
+						
+		</script>
+	</body>
+</html>

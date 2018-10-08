@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>reciept</title>
+	</head>
+	<body>
+		<h1>RECIEPT</h1><br>
+		package: {{nam}}
+		<br>
+		name : {{username}}<br>
+		number of people : {{no}}<br>
+		totalcost:{{tcost}}<br>
+		<br>
+		<h3>CASH RECIEVED</h3>
+		<br><br>
+		<a href="{% url 'reciept' %}">print</a>
+	</body>
+</html>

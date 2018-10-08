@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>pav=</title>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style type="text/css">
+		body
+		{
+			background-color: grey;
+		}
+	</style>
+	<body>
+		
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a  class="navbar-brand" href="#">TourimManagemnt</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li ><a class="active" href="{% url 'index' %}">home</a></li>
+				{% if user.is_authenticated %}
+					
+					<li><a href=" {% url 'logout' %}">LOGOUT</a></li>
+					<li><a href=" {% url 'packages' %}">PACKAGES</a></li>
+				{% else %}
+					
+					<li><a href=" {% url 'login' %}">LOGIN</a></li>
+					<li><a href=" {% url 'register' %}">REGISTER</a></li>
+				{% endif %}
+			</ul>
+			
+			
+		</nav>
+		<div class="container" >
+			<h1>Please Select The Package</h1>
+			{% for i in obj1 %}
+				<div style="background-color: lightblue;">
+					
+					<h2 style="color: purple;">Package Name:{{i.package_name}}</h2>
+					<h2  style="color: purple;">Package Cost: {{i.package_cost}}</h2>
+					<form method ="POST">
+						{% csrf_token %}
+						<input type="hidden" value="{{ i.package_name}}" name="selectedPackage">
+						<button type ="submit" class="btn btn-danger">CLIK HERE</button>
+					</form>
+				</div>
+			{% endfor %}
+		</div>
+	</body>
+</html>
